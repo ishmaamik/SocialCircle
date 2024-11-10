@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import morgan from "morgan";
-import helmet from "helmet";
+import helmetConfig from "./middlewares/helmet.js";
 import dotenv from "dotenv";
 import multer from "multer";
 import { fileURLToPath } from "url";
@@ -15,29 +15,7 @@ const app= express();
 
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use(helmet({
-    contentSecurityPolicy: {
-        useDefaults: false, 
-        directives:{
-            defaultSrc: ["'self'"], 
-            scriptSrc: ["'self'", "'www.example.com'"],
-            objectSrc: ["'none'"], 
-            upgradeInsecureRequests: [], 
-        },
-    },
-    crossOriginOpenerPolicy: {
-        policy: 'same-origin-allow-popups'
-    },
-    crossOriginResourcePolicy: {
-        policy: 'same-origin'
-    }, 
-    referrerPolicy: {
-        policy: ['origin', 'no-referrer-when-downgrade', 'strict-origin-when-cross-origin']
-    },
-    strictTransportSecurity:{
-        maxAge: 15552000   
-    }
-}))
+app.use(helmetConfig);  //don't use helmetConfig() rather helmetConfig only since helmet() is already configured and initialized in helmet.js.
 
 console.log(__fileName);
 console.log(__dirName);
