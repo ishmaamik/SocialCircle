@@ -5,7 +5,7 @@ const helmetConfig= helmet({
         policy: 'same-origin'
     },
     crossOriginResourcePolicy:{
-        policy: 'same-origin'
+        policy: 'cross-origin'
     },
     contentSecurityPolicy:{
         useDefaults: false,

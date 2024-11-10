@@ -13,9 +13,11 @@ const __fileName= fileURLToPath(import.meta.url);
 const __dirName= path.dirname(__fileName);
 const app= express();
 
-app.use(bodyParser.urlencoded({extended: false}));
-
 app.use(helmetConfig);  //don't use helmetConfig() rather helmetConfig only since helmet() is already configured and initialized in helmet.js.
+app.use(morgan("common"));
+app.use(express.json({limit:"30mb", extended: true}));
+app.use(express.urlencoded({limit:"30mb", extended: true}));    //bodyParser is deprecated middleware
+app.use(cors());
 
 console.log(__fileName);
 console.log(__dirName);
