@@ -8,12 +8,17 @@ import dotenv from "dotenv";
 import multer from "multer";
 import { fileURLToPath } from "url";
 import path from "path";
+import { register } from "./controllers/auth.js";
 
+dotenv.config();    //A must NEED
+
+const username= process.env.DB_USERNAME;
+const password= process.env.DB_PASSWORD;
 const __fileName= fileURLToPath(import.meta.url);  
 const __dirName= path.dirname(__fileName);
 const app= express();
 const PORT= 8000;
-
+const URL = `mongodb+srv://${username}:${password}@cluster0.zc15p.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
 const storage= multer.diskStorage({
     destination: function(req, file, cb){
         return cb(null, './uploads');    //null means no error handling and destination upload to ./uploads
@@ -40,6 +45,19 @@ app.post('/uploads', upload.single('profileImage'), (req, res)=>{
 
         return res.redirect("/");
 })
+
+const connection=async()=>{
+    try {
+        await mongoose.connect(URL);
+        console.log('Database Connected Successfully');
+    } catch(error) {
+        console.log('Error: ', error.message);
+    }
+};
+
+ connection();
+
+app.post('/register', upload.single("profileImage"), register);
 
 app.use('/',(req, res)=>{
     const htmlFile= path.join(__dirName, 'frontend.html');
