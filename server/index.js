@@ -5,10 +5,11 @@ import mongoose from "mongoose";
 import morgan from "morgan";
 import helmetConfig from "./middlewares/helmet.js";
 import dotenv from "dotenv";
-import multer from "multer";
+import { upload } from "./middlewares/multer.js";
 import { fileURLToPath } from "url";
 import path from "path";
-import { register } from "./controllers/auth.js";
+import authRoutes from "./routes/auth.js"
+
 
 dotenv.config();    //A must NEED
 
@@ -19,17 +20,7 @@ const __dirName= path.dirname(__fileName);
 const app= express();
 const PORT= 8000;
 const URL = `mongodb+srv://${username}:${password}@cluster0.zc15p.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-const storage= multer.diskStorage({
-    destination: function(req, file, cb){
-        return cb(null, './uploads');    //null means no error handling and destination upload to ./uploads
-    },
 
-    filename: function(req, file, cb){
-        return cb(null, `${Date.now()}-${file.originalname}`);    //returns the unique filename which has appended to date time
-    }
-})
-
-const upload= multer({storage: storage});
 
 
 app.use(helmetConfig);  //don't use helmetConfig() rather helmetConfig only since helmet() is already configured and initialized in helmet.js.
@@ -56,13 +47,16 @@ const connection=async()=>{
 };
 
  connection();
+ app.use("/auth", authRoutes);  //order of "/" and "/auth" matters!
 
-app.post('/register', upload.single("profileImage"), register);
-
-app.use('/',(req, res)=>{
+ app.use("/",(req, res)=>{
     const htmlFile= path.join(__dirName, 'frontend.html');
     res.sendFile(htmlFile);
 })
+
+
+
+
 console.log(__fileName);
 console.log(__dirName);
 
