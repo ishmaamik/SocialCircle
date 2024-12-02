@@ -21,8 +21,8 @@ export const getUser=async(req, res)=>{
 
 export const getUserFriends=async(req, res)=>{
     try{
-        const{id}= req.params;
-        const user= await User.findOne({_id: id});
+        const{username}= req.body;
+        const user= await User.findOne({username: username});
 
         if(!user){
             res.status(404).json("User does not exist");
