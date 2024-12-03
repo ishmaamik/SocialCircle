@@ -9,7 +9,7 @@ import path from "path";
 import authRoutes from "./routes/authRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 import { Connection } from "./middlewares/connect.js";
-
+import postRoutes from "./routes/postRoutes.js";
 const __fileName= fileURLToPath(import.meta.url);  
 const __dirName= path.dirname(__fileName);
 const app= express();
@@ -33,6 +33,7 @@ app.post('/uploads', upload.single('profileImage'), (req, res)=>{
 
  app.use("/auth", authRoutes);  //order of "/" and "/auth" matters!
  app.use("/user", userRoutes);
+ app.use("/post", postRoutes);
 
  app.use("/",(req, res)=>{
     const htmlFile= path.join(__dirName, 'frontend.html');
