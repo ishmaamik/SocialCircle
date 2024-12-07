@@ -1,6 +1,6 @@
-import HomePage from './pages/HomePage/Home';
-import Profile from './pages/ProfilePage/Profile';
-import LoginPage from './pages/LoginPage/Login';
+import HomePage from './Pages/Home/Home';
+import Profile from './Pages/Profile/Profile';
+import LoginPage from './Pages/Login/Login.jsx';
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
 import {ThemeProvider, CssBaseline} from '@mui/material'
 import {createTheme} from '@mui/material';
