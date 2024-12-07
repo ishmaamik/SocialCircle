@@ -53,6 +53,7 @@ export const likePost=async(req, res)=>{
 
         const post= await Post.findById(postId);
         const isLiked= post.likes.get(friendUserName);
+        //only when direct interact with db then await works not if fetched from db
         
         if(isLiked){
             post.likes.delete(friendUserName);

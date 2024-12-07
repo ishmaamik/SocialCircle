@@ -4,7 +4,7 @@ export const getUser=async(req, res)=>{
     try{
         const{
             username
-        }= req.body;
+        }= req.params;
 
         const foundUser= await User.findOne({username: username});
         
@@ -21,7 +21,7 @@ export const getUser=async(req, res)=>{
 
 export const getUserFriends=async(req, res)=>{
     try{
-        const{userName}= req.body;
+        const{userName}= req.params;
         const user= await User.findOne({username: userName});
 
         if(!user){
@@ -36,7 +36,8 @@ export const getUserFriends=async(req, res)=>{
             ({userName, firstName, lastName, occupation, location, picturePath})=>{
                 return{userName, firstName, lastName, occupation, location, picturePath}
             }
-        )
+        ) //since this is an array returning {} is used in return and ()=>{} is the 
+        //only callback accepted by the map function and inside () there is {} since array
         res.status(200).json(formattedFriends);
     }
     catch(error){
@@ -46,7 +47,7 @@ export const getUserFriends=async(req, res)=>{
 
 export const addRemoveFriend= async(req, res)=>{
     try{
-        const{userName, friendUsername}= req.body;
+        const{userName, friendUsername}= req.params;
         const user= await User.findOne({username: userName});
         const friend= await User.findOne({username: friendUsername});
 
@@ -70,7 +71,8 @@ export const addRemoveFriend= async(req, res)=>{
             ({userName, firstName, lastName, occupation, location, picturePath})=>{
                 return{userName, firstName, lastName, occupation, location, picturePath}
             }
-        )
+        ) //since this is an array returning {} is used in return and ()=>{} is the 
+        //only callback accepted by the map function and inside () there is {} since array
         res.status(200).json(formattedFriends);
 
     }
