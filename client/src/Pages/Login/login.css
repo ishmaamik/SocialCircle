@@ -1,0 +1,14 @@
+.firstBox{
+    /* width: 100%;
+    height: 100%; */
+    background-Color: #00353F;
+    padding: 1rem 6%;
+    text-align: center;
+}
+
+.secondBox{
+    /* width: 100%;
+    height: 100%; */
+    padding: 2rem;
+    background-Color: #000000;
+}

@@ -1,0 +1,30 @@
+.firstBox {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(2, minmax(0, 1sfr));
+}
+
+.dropzone{
+    
+    grid-column: span 4;
+    border: 2px solid #b0b0b0;
+    border-radius: 0px;
+    padding: 1rem;
+}
+.dropzone:hover {
+    cursor: pointer;
+}
+
+.BoxUwU {
+    
+    padding: 0rem;
+    background-color: white;
+    /* height: 100%;
+    width: 100%; */
+}
+
+.bgColor {
+    color: white;
+}
+
+

@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 export const verifyToken=async(req, res, next)=>{
     try{
-       let token= req.header("Authorization");
+       let token= req.header("Authorization");  //let otherwise token can't be changed down the line
 
        if(!token){
         res.status(403).send("Access denied");

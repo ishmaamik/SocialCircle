@@ -4,7 +4,8 @@ const initialState={
     posts: [],
     user: null,
     token: null,
-    mode: "light"
+    mode: "light",
+    pageType: "register"
 }
 const authSlice= createSlice({
     initialState: initialState,
@@ -39,9 +40,13 @@ const authSlice= createSlice({
             })
 
             state.posts= updatedPosts
+        },
+
+        setPageType: (state)=>{
+            state.pageType= state.pageType ==="login"? "register" : "login"
         }
     }
 })
 
-export const {setFriends, setLogin, setLogout, setMode, setPosts, setUpdatedPost}= authSlice.actions
+export const {setFriends, setPageType,setLogin, setLogout, setMode, setPosts, setUpdatedPost}= authSlice.actions
 export default authSlice.reducer

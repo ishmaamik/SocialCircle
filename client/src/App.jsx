@@ -13,7 +13,7 @@ function App() {
   const mode= useSelector((state)=> state.auth.mode)
   const theme= useMemo(()=> createTheme(themeSettings(mode)), [mode])
   return (
-    <div className="App">
+    <div className="App" style={{overflowX:'hidden', overflowY:'hidden', height:'100vh'}}>
       <ThemeProvider theme={theme}>
         <CssBaseline/>
      <BrowserRouter >
