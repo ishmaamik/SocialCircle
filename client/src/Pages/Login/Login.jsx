@@ -1,6 +1,6 @@
 import FlexCenter from "../../components/FlexBetween"
 import Form from "./Forms"
-import "./login.css"
+import "./css/login.css"
 import { Box, IconButton, Typography, useTheme } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
 import {setMode} from "../../redux/authSlice"

@@ -1,4 +1,4 @@
-import './forms.css'
+import './css/forms.css'
 import Dropzone from 'react-dropzone'
 import { Box, Typography} from '@mui/material'
 import FlexBetween from '../../components/FlexBetween'

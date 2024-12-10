@@ -3,7 +3,7 @@ import * as Yup from "yup"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { Box } from "@mui/material"
-import './forms.css'
+import './css/forms.css'
 import { setPageType } from "../../redux/authSlice"
 import DropZone from "./Dropzone"
 import Fields from "./Fields"
