@@ -71,28 +71,28 @@ const Forms=()=>{
                             {
                                 isRegister && (
                                     <>
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2", backgroundColor:"white" }} label="First Name"/>)} type="text" name="firstName" id="firstName"/>
+                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 1", backgroundColor:"white" }} fullWidth="true" label="First Name"/>)} type="text" name="firstName" id="firstName"/>
                                     <ErrorMessage name="firstName" className="bgColor"/>
 
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2", backgroundColor:"white",}} label="Last Name"/>)} type="text" name="lastName" id="lastName"/>
+                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 1", backgroundColor:"white",}} label="Last Name"/>)} type="text" name="lastName" id="lastName"/>
                                     <ErrorMessage name="lastName" className="bgColor"/>
 
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 4", backgroundColor:"white", }} label="Username"/>)} type="text" name="username" id="username"/>
+                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2", backgroundColor:"white", }} label="Username"/>)} type="text" name="username" id="username"/>
                                     <ErrorMessage name="username" className="bgColor"/>
 
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 4" , backgroundColor:"white", }}label="Email"/>)} type="email" name="email" id="email"/>
+                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2" , backgroundColor:"white", }}label="Email"/>)} type="email" name="email" id="email"/>
                                     <ErrorMessage name="email" className="bgColor"/>
 
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 4", backgroundColor:"white",  }} label="Password" type="password"/>)} type="password" name="password" id="password"/>
+                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2", backgroundColor:"white",  }} label="Password" type="password"/>)} type="password" name="password" id="password"/>
                                     <ErrorMessage name="password" className="bgColor"/>
 
-                                    <Box className="BoxUwU" sx={{gridColumn: "span 4"}}>
+                                    <Box className="secondBox" sx={{gridColumn: "span 2"}}>
                                         <Dropzone accept={".jpg, .jpeg, .png"} multiple={false} onDrop={(accept)=> setFieldValue("picturePath", accept[0])}>
                                                 {
                                                     ({
                                                         getRootProps, getInputProps
                                                     }) => (
-                                                        <Box {...getRootProps()} className="dropzone" sx={{backgroundColor:"white"}}>
+                                                        <Box {...getRootProps()} className="thirdBox" sx={{backgroundColor:"white"}}>
                                                             <input {...getInputProps()}/>
                                                             {
                                                                 !values.picturePath ? (<Typography sx={{backgroundColor:'white'}}> Add a picture </Typography>) : (

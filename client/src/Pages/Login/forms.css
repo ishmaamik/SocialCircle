@@ -1,26 +1,30 @@
 .firstBox {
+    width: 100%;
     display: grid;
-    gap: 30px;
-    grid-template-columns: repeat(2, minmax(0, 1sfr));
+    gap: 50px;
+    grid-template-columns: repeat(2,minmax(0, 1fr));
+    border-Radius: 5px;
 }
 
-.dropzone{
+.secondBox{
     
     grid-column: span 4;
-    border: 2px solid #b0b0b0;
-    border-radius: 0px;
+    border-radius: 5px;
     padding: 1rem;
 }
-.dropzone:hover {
+.secondBox:hover {
     cursor: pointer;
 }
 
-.BoxUwU {
-    
+.thirdBox {
     padding: 0rem;
-    background-color: white;
-    /* height: 100%;
-    width: 100%; */
+     background-color: #00D5FA;
+     border: 2px solid dashed #00D5FA;
+     justify-content: center;
+}
+
+.thirdBox:hover {
+    cursor: pointer;
 }
 
 .bgColor {

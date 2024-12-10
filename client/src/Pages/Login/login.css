@@ -1,14 +1,15 @@
-.firstBox{
-    /* width: 100%;
-    height: 100%; */
-    background-Color: #00353F;
+.firstBoy{
+    width: 100%;
+    background-Color: #FFFFFF;
     padding: 1rem 6%;
     text-align: center;
+    justify-content: center;
 }
 
-.secondBox{
-    /* width: 100%;
-    height: 100%; */
+.secondBoy{
+    width: 50%;
+    margin: 2rem auto;
     padding: 2rem;
-    background-Color: #000000;
+    background-Color: #ffffff;
+    border-radius: 1.5rem;
 }
