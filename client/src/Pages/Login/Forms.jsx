@@ -1,137 +1,153 @@
-import {Formik, Field, Form, ErrorMessage} from "formik"
+import { Formik, Form } from "formik"
 import * as Yup from "yup"
-import {useDispatch, useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { Box, TextField, Typography, colors } from "@mui/material"
-import Dropzone from "react-dropzone"
-import FlexBetween from "../../components/FlexBetween"
-import { EditOutlined } from "@mui/icons-material"
+import { Box } from "@mui/material"
 import './forms.css'
-import { useTheme } from "@mui/material"
-const initialRegister={
+import { setPageType } from "../../redux/authSlice"
+import DropZone from "./Dropzone"
+import Fields from "./Fields"
+import RegisterButton from "./RegisterButton"
+import LoginButton from "./LoginButton"
+const initialRegister = {
     firstName: "",
-    lastName:"",
-    username:"",
+    lastName: "",
+    username: "",
     email: "",
     password: "",
-    picturePath: ""
+    profileImage: ""
 }
 
-const initialLogin={
+const initialLogin = {
     username: "",
     password: ""
 }
 
-const onSubmit=(values)=>{
-        console.log('Form data ', values)
-}
-
-const registerSchema= Yup.object({
+const registerSchema = Yup.object({
     firstName: Yup.string().required(),
     lastName: Yup.string().required(),
     username: Yup.string().required(),
     password: Yup.string().required(),
-    picturePath: Yup.string().required(),
+    profileImage: Yup.string().required(),
     email: Yup.string().email().required(),
-    
+
 })
 
-const loginSchema= Yup.object({
+const loginSchema = Yup.object({
     username: Yup.string().required(),
     password: Yup.string().required(),
 })
 
-const Forms=({theme})=>{
-    const pageType= useSelector((state)=>state.auth.pageType)
-    const dispatch= useDispatch()
-    const navigate= useNavigate()
-    const isLogin= pageType==="login"
-    const isRegister= pageType==="register"
+const Forms = ({ theme }) => {
+    const pageType = useSelector((state) => state.auth.pageType)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const isLogin = pageType === "login"
+    const isRegister = pageType === "register"
 
-    const handleFormSubmit= async(values, onSubmitProps)=> {}
+    const handleFormSubmit = async (values, onSubmitProps) => {
 
-    return(
-       <>
-       <Formik onSubmit={handleFormSubmit} initialValues={isLogin ? initialLogin : initialRegister} validationSchema={isLogin ? loginSchema : registerSchema}>
-            {
-                ({
-                    handleBlur,
-                    handleChange,
-                    handleSubmit,
-                    values,
-                    errors,
-                    handleReset,
-                    resetForm,
-                    touched,
-                    setFieldValue
+        const formData = new FormData();
 
-                }) =>
-                (
-                    <Form onSubmit={handleSubmit}>
-                        <Box className="firstBox">
-                            {
-                                isRegister && (
-                                    <>
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 1", backgroundColor:"white", '& .MuiInputLabel-root': {color: "black"} }} label="First Name" />)} type="text" name="firstName" id="firstName"/>
-                                    <ErrorMessage name="firstName" className="bgColor"/>
-
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 1", backgroundColor:"white", '& .MuiInputLabel-root': {color: "black"}}} label="Last Name"/>)} type="text" name="lastName" id="lastName"/>
-                                    <ErrorMessage name="lastName" className="bgColor"/>
-
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2", backgroundColor:"white", '& .MuiInputLabel-root': {color: "black"}}} label="Username"/>)} type="text" name="username" id="username"/>
-                                    <ErrorMessage name="username" className="bgColor"/>
-
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2" , backgroundColor:"white", '& .MuiInputLabel-root': {color: "black"} }}label="Email"/>)} type="email" name="email" id="email"/>
-                                    <ErrorMessage name="email" className="bgColor"/>
-
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2", backgroundColor:"white",  '& .MuiInputLabel-root': {color: "black"}}} label="Password" type="password"/>)} type="password" name="password" id="password"/>
-                                    <ErrorMessage name="password" className="bgColor"/>
-
-                                    <Box className="secondBox" sx={{gridColumn: "span 2"}} border={`1px solid ${theme.palette.neutral.medium}`}>
-                                        <Dropzone accept={{"image/jpeg": [],"image/png": [], "image/jpg": []}} multiple={false} onDrop={(acceptedFiles)=> setFieldValue("picturePath", acceptedFiles[0])}>
-                                                {
-                                                    ({
-                                                        getRootProps, getInputProps
-                                                    }) => (
-                                                        <Box {...getRootProps()} className="thirdBox" border={`2px dashed ${theme.palette.primary.main}`} sx={{backgroundColor:"white"}}>
-                                                            <input {...getInputProps()}/>
-                                                            {
-                                                                !values.picturePath ? (<Typography sx={{color:'black',backgroundColor:'white', '& .MuiInputLabel-root': {color: "black"}}}> Add a picture </Typography>) : (
-                                                                    <FlexBetween>
-                                                                        <Typography sx={{backgroundColor:'white'}} >{values.picturePath.name}</Typography>
-                                                                            <EditOutlined sx={{ width:'100px', alignItems:'flex-start'}}/>
-                                                                    </FlexBetween>
-                                                                ) 
-                                                            }
-                                                        </Box>
-                                                    )
-                                                }
-                                                
-                                                
-                                        </Dropzone>
-                                    </Box>
-                                    </>
-                                )
-                            }
-
-                            {
-                                isLogin && (
-                                    <>
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 4", backgroundColor:"white" }}/>)} type="text" name="username" id="username"/>
-                                    <ErrorMessage name="username"/>
-
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 4", backgroundColor:"white" }}/>)} type="password" name="password" id="password"/>
-                                    <ErrorMessage name="password"/>
-                                    </>
-                                )
-                            }
-                        </Box>
-                    </Form>
-                )
+        if (isRegister) {
+            for (let value in values) {
+                formData.append(value, values[value])
             }
-       </Formik>
+            formData.append('profileImage', values.profileImage.name)
 
-       </>
+            const savedUserResponse = await fetch(
+                "http://localhost:8000/auth/register",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            )
+
+            const savedUser = await savedUserResponse.json()
+            dispatch(setPageType("login"))
+            onSubmitProps.resetForm()
+        }
+
+        else {
+
+            for (let value in values) {
+                formData.append(value, values[value])
+            }
+
+            const UserLogin = await fetch(
+                "http://localhost:8000/auth/login",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(values),
+                }
+            )
+
+            const savedUser = await UserLogin.json()
+
+            console.log(savedUser)
+            onSubmitProps.resetForm()
+            navigate('/home')
+
+
+        }
+    }
+
+    return (
+        <>
+            <Formik onSubmit={handleFormSubmit} initialValues={isLogin ? initialLogin : initialRegister} validationSchema={isLogin ? loginSchema : registerSchema}>
+                {
+                    ({ handleSubmit, values, setFieldValue }) =>
+
+                    (
+                        <Form onSubmit={handleSubmit}>
+                            {
+                                isRegister ? (
+                                    <>
+                                        <Box className="firstBox">
+                                            <Fields label={"First Name"} name={"firstName"} gridColumn={"span 1"} type={"text"} />
+                                            <Fields label={"Last Name"} name={"lastName"} gridColumn={"span 1"} type={"text"} />
+                                            <Fields label={"Username"} name={"username"} gridColumn={"span 2"} type={"text"} />
+                                            <Fields label={"Email"} name={"email"} gridColumn={"span 2"} type={"email"} />
+                                            <Fields label={"Password"} name={"password"} gridColumn={"span 2"} type={"password"} />
+                                            <DropZone theme={theme} values={values} setFieldValue={setFieldValue} profileImage={values.profileImage} />
+                                        </Box>
+                                    </>
+                                )
+
+                                    : (
+                                        <>
+                                            <Box className="fourthBox">
+                                                <Fields label={"Username"} name={"username"} gridColumn={"span 2"} type={"text"} />
+                                                <Fields label={"Password"} name={"password"} gridColumn={"span 2"} type={"password"} />
+                                            </Box>
+                                        </>
+                                    )
+
+                            }
+
+                            {/* Buttons */}
+
+                            {
+                                isRegister ? (
+                                    <>
+                                        <RegisterButton />
+                                    </>
+                                )
+                                    :
+                                    (
+                                        <>
+                                            <LoginButton />
+                                        </>
+                                    )
+                            }
+
+                        </Form>
+                    )
+                }
+            </Formik>
+
+        </>
     )
 }
 

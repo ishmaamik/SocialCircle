@@ -24,7 +24,7 @@ const Navbar=()=>{
         <div>
         <FlexBetween padding="1rem 6%" backgroundColor={alt} gap={"3rem"}> 
                 
-            <Typography fontWeight="bold" fontSize="30px" color="primary" onClick={()=>navigate('/home')} sx={{ ":hover":{cursor:"pointer", color: dark}}}>
+            <Typography fontWeight="bold" fontSize="32px" color="primary" onClick={()=>navigate('/home')} sx={{ ":hover":{cursor:"pointer", color: dark}}}>
                 SocialCircle
             </Typography>
                 

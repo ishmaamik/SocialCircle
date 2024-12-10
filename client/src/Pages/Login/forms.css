@@ -1,7 +1,7 @@
 .firstBox {
     width: 100%;
     display: grid;
-    gap: 50px;
+    gap: 20px;
     grid-template-columns: repeat(2,minmax(0, 1fr));
     border-Radius: 5px;
 }
@@ -21,4 +21,10 @@
     cursor: pointer;
 }
 
-
+.fourthBox {
+    width: 100%;
+    display: grid;
+    gap: 50px;
+    grid-template-columns: repeat(2,minmax(0, 1fr));
+    border-Radius: 5px;
+}
