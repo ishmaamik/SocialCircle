@@ -17,9 +17,8 @@ const Navbar=()=>{
     const alt= theme.palette.background.alt
     const dark= theme.palette.primary.dark
     const cyan= theme.palette.secondary.dark
-    const fullName= `Ishmaam`
-    // const fullName= `${user.fullName} ${user.lastName}`
-    //padding is left, right, top, bottom whereas gap is between components
+    const userName = user ? `${user.username}` : 'Guest';
+    
     return(
         <div>
         <FlexBetween padding="1rem 6%" backgroundColor={alt} gap={"3rem"}> 
@@ -49,10 +48,10 @@ const Navbar=()=>{
                 <Notifications/>
                 <Message/>
                 <Help/>
-                <FormControl variant="standard" value={fullName} sx={{justifyContent:'center'}}>
-                    <Select value={fullName}  sx={{ justifyContent:'center', backgroundColor: neutralLight, width: "150px", borderRadius: "0.25rem",p: "0.25rem 1rem"}}>
-                        <MenuItem value={fullName} sx={{justifyContent:'center'}}>
-                            <Typography>{fullName}</Typography>
+                <FormControl variant="standard" value={userName} sx={{justifyContent:'center'}}>
+                    <Select value={userName}  sx={{ justifyContent:'center', backgroundColor: neutralLight, width: "150px", borderRadius: "0.25rem",p: "0.25rem 1rem"}}>
+                        <MenuItem value={userName} sx={{justifyContent:'center'}}>
+                            <Typography>{userName}</Typography>
                         </MenuItem>
                         <MenuItem sx={{justifyContent:'center'}} onClick={()=>dispatch(setLogout())}>LogOut</MenuItem>
                     </Select>

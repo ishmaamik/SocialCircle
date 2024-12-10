@@ -51,20 +51,20 @@ export const login= async(req, res)=>{
             password
         }= req.body;
 
-        const loggedUser= await User.findOne({username: username})
+        const user= await User.findOne({username: username})
 
-        if(!loggedUser){
+        if(!user){
             res.status(404).json({message: "User does not exist"});
         }
 
-        const isMatch= await bcrypt.compare(password, loggedUser.password);
+        const isMatch= await bcrypt.compare(password, user.password);
         if(!isMatch){
             res.status(400).json({message: "Invalid credentials"});
         }
 
-        const token= jwt.sign({id: loggedUser._id}, process.env.JWT_SECRET);
-        delete loggedUser.password; //to prevent the user password being printed
-         res.status(200).json(loggedUser);
+        const token= jwt.sign({id: user._id}, process.env.JWT_SECRET);
+        delete user.password; //to prevent the user password being printed
+         res.status(200).json({user, token});
         
 
     }

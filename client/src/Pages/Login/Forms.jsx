@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { Box } from "@mui/material"
 import './css/forms.css'
-import { setPageType } from "../../redux/authSlice"
 import DropZone from "./Dropzone"
 import Fields from "./Fields"
 import RegisterButton from "./RegisterButton"
 import LoginButton from "./LoginButton"
+import { HandleLogIn, HandleRegister } from "./API"
 const initialRegister = {
     firstName: "",
     lastName: "",
@@ -44,52 +44,17 @@ const Forms = ({ theme }) => {
     const navigate = useNavigate()
     const isLogin = pageType === "login"
     const isRegister = pageType === "register"
+    const user= useSelector((state)=>state.auth.user)
 
     const handleFormSubmit = async (values, onSubmitProps) => {
 
         const formData = new FormData();
 
         if (isRegister) {
-            for (let value in values) {
-                formData.append(value, values[value])
-            }
-            formData.append('profileImage', values.profileImage.name)
-
-            const savedUserResponse = await fetch(
-                "http://localhost:8000/auth/register",
-                {
-                    method: "POST",
-                    body: formData
-                }
-            )
-
-            const savedUser = await savedUserResponse.json()
-            dispatch(setPageType("login"))
-            onSubmitProps.resetForm()
+            await HandleRegister({formData, values, onSubmitProps, dispatch});
         }
-
         else {
-
-            for (let value in values) {
-                formData.append(value, values[value])
-            }
-
-            const UserLogin = await fetch(
-                "http://localhost:8000/auth/login",
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(values),
-                }
-            )
-
-            const savedUser = await UserLogin.json()
-
-            console.log(savedUser)
-            onSubmitProps.resetForm()
-            navigate('/home')
-
-
+            await HandleLogIn({formData, values, onSubmitProps, navigate, dispatch})
         }
     }
 
