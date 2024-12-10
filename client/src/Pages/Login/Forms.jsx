@@ -2,11 +2,12 @@ import {Formik, Field, Form, ErrorMessage} from "formik"
 import * as Yup from "yup"
 import {useDispatch, useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { Box, TextField, Typography } from "@mui/material"
+import { Box, TextField, Typography, colors } from "@mui/material"
 import Dropzone from "react-dropzone"
 import FlexBetween from "../../components/FlexBetween"
 import { EditOutlined } from "@mui/icons-material"
 import './forms.css'
+import { useTheme } from "@mui/material"
 const initialRegister={
     firstName: "",
     lastName:"",
@@ -40,7 +41,7 @@ const loginSchema= Yup.object({
     password: Yup.string().required(),
 })
 
-const Forms=()=>{
+const Forms=({theme})=>{
     const pageType= useSelector((state)=>state.auth.pageType)
     const dispatch= useDispatch()
     const navigate= useNavigate()
@@ -71,34 +72,34 @@ const Forms=()=>{
                             {
                                 isRegister && (
                                     <>
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 1", backgroundColor:"white" }} fullWidth="true" label="First Name"/>)} type="text" name="firstName" id="firstName"/>
+                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 1", backgroundColor:"white", '& .MuiInputLabel-root': {color: "black"} }} label="First Name" />)} type="text" name="firstName" id="firstName"/>
                                     <ErrorMessage name="firstName" className="bgColor"/>
 
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 1", backgroundColor:"white",}} label="Last Name"/>)} type="text" name="lastName" id="lastName"/>
+                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 1", backgroundColor:"white", '& .MuiInputLabel-root': {color: "black"}}} label="Last Name"/>)} type="text" name="lastName" id="lastName"/>
                                     <ErrorMessage name="lastName" className="bgColor"/>
 
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2", backgroundColor:"white", }} label="Username"/>)} type="text" name="username" id="username"/>
+                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2", backgroundColor:"white", '& .MuiInputLabel-root': {color: "black"}}} label="Username"/>)} type="text" name="username" id="username"/>
                                     <ErrorMessage name="username" className="bgColor"/>
 
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2" , backgroundColor:"white", }}label="Email"/>)} type="email" name="email" id="email"/>
+                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2" , backgroundColor:"white", '& .MuiInputLabel-root': {color: "black"} }}label="Email"/>)} type="email" name="email" id="email"/>
                                     <ErrorMessage name="email" className="bgColor"/>
 
-                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2", backgroundColor:"white",  }} label="Password" type="password"/>)} type="password" name="password" id="password"/>
+                                    <Field render={({field})=>(<TextField {...field} sx={{ gridColumn: "span 2", backgroundColor:"white",  '& .MuiInputLabel-root': {color: "black"}}} label="Password" type="password"/>)} type="password" name="password" id="password"/>
                                     <ErrorMessage name="password" className="bgColor"/>
 
-                                    <Box className="secondBox" sx={{gridColumn: "span 2"}}>
-                                        <Dropzone accept={".jpg, .jpeg, .png"} multiple={false} onDrop={(accept)=> setFieldValue("picturePath", accept[0])}>
+                                    <Box className="secondBox" sx={{gridColumn: "span 2"}} border={`1px solid ${theme.palette.neutral.medium}`}>
+                                        <Dropzone accept={{"image/jpeg": [],"image/png": [], "image/jpg": []}} multiple={false} onDrop={(acceptedFiles)=> setFieldValue("picturePath", acceptedFiles[0])}>
                                                 {
                                                     ({
                                                         getRootProps, getInputProps
                                                     }) => (
-                                                        <Box {...getRootProps()} className="thirdBox" sx={{backgroundColor:"white"}}>
+                                                        <Box {...getRootProps()} className="thirdBox" border={`2px dashed ${theme.palette.primary.main}`} sx={{backgroundColor:"white"}}>
                                                             <input {...getInputProps()}/>
                                                             {
-                                                                !values.picturePath ? (<Typography sx={{backgroundColor:'white'}}> Add a picture </Typography>) : (
+                                                                !values.picturePath ? (<Typography sx={{color:'black',backgroundColor:'white', '& .MuiInputLabel-root': {color: "black"}}}> Add a picture </Typography>) : (
                                                                     <FlexBetween>
-                                                                        <Typography sx={{backgroundColor:'white'}}>{values.picturePath.name}</Typography>
-                                                                            <EditOutlined/>
+                                                                        <Typography sx={{backgroundColor:'white'}} >{values.picturePath.name}</Typography>
+                                                                            <EditOutlined sx={{ width:'100px', alignItems:'flex-start'}}/>
                                                                     </FlexBetween>
                                                                 ) 
                                                             }

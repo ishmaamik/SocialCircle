@@ -52,6 +52,9 @@ export const colorTokens = {
                 default: colorTokens.grey[900],
                 alt: colorTokens.grey[800],
               },
+              inverse:{
+                default: colorTokens.grey[0]
+              }
             }
           :  {
               // palette values for light mode
@@ -71,6 +74,9 @@ export const colorTokens = {
                 default: colorTokens.grey[10],
                 alt: colorTokens.grey[0],
               },
+              inverse:{
+                default: colorTokens.grey[900]
+              }
             }),
       },
       typography: {

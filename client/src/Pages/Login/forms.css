@@ -9,26 +9,16 @@
 .secondBox{
     
     grid-column: span 4;
-    border-radius: 5px;
-    padding: 1rem;
-}
-.secondBox:hover {
-    cursor: pointer;
+    border-radius: 7px;
+    padding: 0.5rem;
 }
 
 .thirdBox {
-    padding: 0rem;
-     background-color: #00D5FA;
-     border: 2px solid dashed #00D5FA;
-     justify-content: center;
+    padding: 1rem;
 }
 
 .thirdBox:hover {
     cursor: pointer;
-}
-
-.bgColor {
-    color: white;
 }
 
 
