@@ -2,7 +2,7 @@
 
 export const Data=[
     {   
-        profile:"/public/User.jpg",
+        profile:"/User.jpg",
         username: "Aizen",
         detail:"SWE Student @ IUT | Aspiring Software Developer",
         caption:"I finally got my Zhongli!!",

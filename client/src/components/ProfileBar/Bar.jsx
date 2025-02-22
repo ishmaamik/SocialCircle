@@ -9,7 +9,7 @@ const Bar = () => {
     const [status, setStatus] = useState(localStorage.getItem("status") || ""); // Load status from localStorage initially
 
     const handleSubmit = () => {
-        if(statuse){
+        if (statuse) {
             localStorage.removeItem("status")
             setStatuse("")
         }
@@ -20,11 +20,14 @@ const Bar = () => {
     return (
         <>
             <div className="bar">
-                <img src="/public/User.jpg" className="barProfile" alt="" />
+                <div style={{ position: "relative" }}>
+                    <img src="/flower.jpg" style={{ height: "200px", zIndex: "-1", width: "780px", position: "fixed", borderRadius: "12px", objectFit: "cover" }} />
+                </div>
+                <img style={{ zIndex: "1" }} src="/User.jpg" className="barProfile" alt="" />
                 <h3 className="barNameText">{firstName} {lastName}</h3>
-                {status ? (<p className="barProfileText">{status}</p>) : (<TextField className="barProfileText" style={{ width: "500px", marginLeft:"16px" }} multiline onChange={(e) => { setStatuse(e.target.value) }} />)}
-                <div style={{position:"relative"}}>
-                    <Button  onClick={handleSubmit} style={{bottom:"auto", marginLeft:"20px"}}>Update Status</Button>
+                {status ? (<p className="barProfileText">{status}</p>) : (<TextField className="barProfileText" style={{ width: "500px", marginLeft: "16px" }} multiline onChange={(e) => { setStatuse(e.target.value) }} />)}
+                <div style={{ position: "relative" }}>
+                    <Button onClick={handleSubmit} style={{ bottom: "auto", marginLeft: "20px" }}>Update Status</Button>
                 </div>
             </div>
         </>
