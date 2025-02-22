@@ -7,20 +7,22 @@ import {createTheme} from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { themeSettings } from './theme';
-
+import Topbar from "../src/components/Topbar/TopBar.jsx"
+import Login from './Pages/Form/Login/Login.jsx';
 function App() {
   
   const mode= useSelector((state)=> state.auth.mode)
   const theme= useMemo(()=> createTheme(themeSettings(mode)), [mode])
   return (
-    <div className="App" style={{overflowX:'hidden', overflowY:'hidden', height:'100vh'}}>
+    <div className="app" >
       <ThemeProvider theme={theme}>
-        <CssBaseline/>
+        {/* <CssBaseline/> */}
      <BrowserRouter >
         <Routes>
-          <Route path='/' element={<LoginPage/>}/>
+          <Route path='/' element={<Login/>}/>
           <Route path='/home' element={<HomePage/>}/>
           <Route path='/profile/:username' element={<Profile/>}/>
+          <Route path='/topbar' element={<Topbar/>}/>
         </Routes>
      </BrowserRouter>
      </ThemeProvider>
