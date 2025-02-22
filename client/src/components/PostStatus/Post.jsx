@@ -17,7 +17,7 @@ const Post = () => {
 
                 <div style={{display:"flex", justifyContent:"space-around", alignItems:"center", marginTop:"20px"}}>
                     {Data.map((p, key)=>{
-                        return <div style={{display:"flex", alignItems:"center"}}> 
+                        return <div key={key} style={{display:"flex", alignItems:"center"}}> 
                         <div>{p.icon}</div>
                         <Button style={{color:"black"}}>{p.title}</Button>
                         </div>

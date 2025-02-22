@@ -1,8 +1,12 @@
+import Bar from "../../components/ProfileBar/Bar"
+import TopBar from "../../components/Topbar/TopBar"
 
 const Profile=()=>{
     return(
         <div>
-            <Navbar/>
+            <TopBar/>
+
+            <Bar/>
         </div>
     )
 }

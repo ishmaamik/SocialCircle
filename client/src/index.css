@@ -160,3 +160,36 @@ html, body, #root {
   transform: translate(-50%, -50%);
   
 }
+
+.bar{
+  background-color: #FFFFFF;
+  margin-left: 170px;
+  margin-top: 150px;
+  z-index: 4;
+  height: 600px;
+  width: 780px;
+  border-radius: 12px;
+  position: absolute;
+  
+}
+
+.barProfile{
+  border: 1px solid black;
+  border-radius: 50%;
+  margin-top: 16px;
+  margin-left: 16px;
+  width: 200px;
+  height: 200px;
+}
+
+.barNameText{
+  margin-left: 16px;
+  width: 250px;
+}
+
+.barProfileText{
+  margin-left: 20px;
+  margin-top: 60px;
+  width: 450px;
+  font-size: 15px;
+}
