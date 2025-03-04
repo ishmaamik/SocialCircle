@@ -22,6 +22,34 @@ const Login = () => {
     }
   }, []); // Empty dependency array ensures this effect runs once on mount
 
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
+
+useEffect(() => {
+  const userProfileCookie = getCookie('userProfile');  // Get the userProfile cookie
+  console.log(userProfileCookie)
+  if (userProfileCookie) {
+    try {
+      const decodedUserProfileCookie = decodeURIComponent(userProfileCookie);
+      const userProfile = JSON.parse(decodedUserProfileCookie);  // Parse the decoded string // Parse the cookie value to an object
+      console.log(userProfile)
+      if (userProfile) {
+        localStorage.setItem("firstName", userProfile.firstName);
+        localStorage.setItem("lastName", userProfile.lastName);
+        localStorage.setItem("email", userProfile.email);
+      }
+    } catch (error) {
+      console.error('Error parsing user profile from cookie:', error);
+    }
+  }
+}, []); // This effect runs once on mount
+
+
   const fetchGoogleUserInfo = async (accessToken) => {
     try {
       const response = await fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${accessToken}`);
@@ -31,9 +59,9 @@ const Login = () => {
         throw new Error(data.error_description);
       }
 
-      // Storing the user's info in localStorage for easy access
-      localStorage.setItem("firstName", data.given_name);
-      localStorage.setItem("email", data.email);
+      // // Storing the user's info in localStorage for easy access
+      // localStorage.setItem("email", data.email);
+      // localStorage.setItem("firstName", data.firstName);
 
       // Optionally, you can navigate here after fetching user info
       navigate('/home'); // Navigate to home after successful login

@@ -10,6 +10,7 @@ passport.use(new GoogleStrategy({
     callbackURL: '/auth/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
     try {
+        console.log(profile);
         const user = await userModel.findOne({ googleId: profile.id })
 
         if (user) {
@@ -21,12 +22,17 @@ passport.use(new GoogleStrategy({
 
         const newUser = await userModel.create({
             googleId: profile.id,
-            firstName: profile.displayName,
-            email: profile.emails[0].value,
+            firstName: profile.name.givenName, // Store the given name from the profile
+            lastName: profile.name.familyName, // Store the family name from the profile
+            email: profile.emails[0].value,   // Store the email from the profile
+            picture: profile.photos ? profile.photos[0].value : null, // Store the profile picture if available
             accessToken: accessToken // Save the access token
         });
 
-        done(null, newUser)
+        console.log(profile.name.familyName)
+        
+
+        done(null, newUser, profile)
     } catch (error) {
         done(error)
     }

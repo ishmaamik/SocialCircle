@@ -46,10 +46,20 @@ app.use(express.json());
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
   // Generate JWT token after successful authentication
   console.log("Yayy hoise")
-  const accessToken = req.user.accessToken; // Assuming req.user contains the authenticated user
+  const accessToken = req.user.accessToken;
+  const profile= req.user;
+    const userProfile = {
+        lastName: profile.lastName,
+        firstName: profile.firstName,
+        email: profile.email,
+    };
   res.cookie('googleAccessToken', accessToken, {
     maxAge: 300000    // Expiry time for the token (e.g., 1 minute)
   });  // Send token as HTTP cookie
+
+  res.cookie('userProfile', JSON.stringify(userProfile), {
+    maxAge: 300000
+});
   res.redirect('http://localhost:5173/');
 });
 
