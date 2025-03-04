@@ -79,6 +79,15 @@ useEffect(() => {
     }
   };
 
+  const handleGithubLogin = async () => {
+    try {
+      const googleAuthURL = 'http://localhost:3000/auth/github'; // Initiates Google login
+      window.location.href = googleAuthURL; // Redirect user to Google OAuth
+    } catch (error) {
+      console.error('Error during Google login:', error);
+    }
+  };
+
   const handleSubmit = async () => {
     const response = await fetch('http://localhost:3000/user', {
       method: 'POST',
@@ -110,6 +119,7 @@ useEffect(() => {
 
       {/* Google Login Button */}
       <Button onClick={handleGoogleLogin}>Login with Google</Button>
+      <Button onClick={handleGithubLogin}>Login with Google</Button>
     </div>
   );
 };

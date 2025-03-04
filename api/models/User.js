@@ -1,6 +1,12 @@
 import mongoose from "mongoose"
 import bcrypt from "bcryptjs"
 const userSchema= new mongoose.Schema({   
+    githubId:{
+        type:String
+    },
+    githubUsername:{
+        type:String
+    },
     googleId:{
         type: String
     },

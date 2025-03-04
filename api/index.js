@@ -1,5 +1,6 @@
 import express from 'express';
 import passport from "./controllers/googleOAuth.js";
+import githubPass from "./controllers/githubOAuth.js"
 import dotenv from 'dotenv';
 import cors from 'cors';
 import session from 'express-session';
@@ -60,6 +61,42 @@ app.get('/auth/google/callback', passport.authenticate('google', { failureRedire
   res.cookie('userProfile', JSON.stringify(userProfile), {
     maxAge: 300000
 });
+  res.redirect('http://localhost:5173/');
+});
+
+app.get('/auth/github', githubPass.authenticate('github', { scope: ['profile', 'email'], redirect_uri: 'http://localhost:3000/auth/github/callback' }));
+
+// Callback route after GitHub redirects the user back
+app.get('/auth/github/callback', githubPass.authenticate('github', { failureRedirect: '/' }), (req, res) => {
+  console.log("GitHub OAuth Callback triggered");
+
+  const accessToken = req.user.accessToken;
+  const profile = req.user;
+
+  // Create the userProfile object
+  const userProfile = {
+    firstName: profile.firstName,
+    lastName: profile.lastName,
+    email: profile.email,
+    profilePicture: profile.profilePicture
+  };
+
+  // Send the access token and user profile as cookies
+  res.cookie('githubAccessToken', accessToken, {
+    maxAge: 300000,  // Expiry time for the token (e.g., 5 minutes)
+    httpOnly: false,  // Allow frontend JS to access the cookie
+    secure: process.env.NODE_ENV === 'production',  // Use secure cookies in production
+    sameSite: 'Strict'  // Helps with CSRF protection
+  });
+
+  res.cookie('userProfile', JSON.stringify(userProfile), {
+    maxAge: 300000,  // Expiry time for the cookie
+    httpOnly: false,  // Allow frontend JS to access the cookie
+    secure: process.env.NODE_ENV === 'production',  // Use secure cookies in production
+    sameSite: 'Strict'  // Helps with CSRF protection
+  });
+
+  // Redirect the user to the frontend after successful authentication
   res.redirect('http://localhost:5173/');
 });
 
