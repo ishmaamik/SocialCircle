@@ -1,7 +1,7 @@
 
 
 const Sidebar = () => {
-    const firstName = localStorage.getItem("firstName")
+    const firstName = localStorage.getItem("email")
     const lastName = localStorage.getItem("lastName")
     const status = localStorage.getItem("status")
     return (

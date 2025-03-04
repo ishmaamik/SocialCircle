@@ -26,7 +26,8 @@ export const addUser=async(req, res)=>{
 
 export const getUser=async(req, res)=>{
     try{
-        
+        const {firstName, lastName, email, password}= req.body;
+        const user= await userModel.findOne({userId: userId})
     }
 
     catch(error){

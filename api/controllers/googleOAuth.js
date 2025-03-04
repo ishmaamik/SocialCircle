@@ -13,14 +13,18 @@ passport.use(new GoogleStrategy({
         const user = await userModel.findOne({ googleId: profile.id })
 
         if (user) {
-            return done(null, user)
+            // Attach the access token to the user object
+            user.accessToken = accessToken;
+            await user.save();
+            return done(null, user);
         }
 
         const newUser = await userModel.create({
             googleId: profile.id,
             firstName: profile.displayName,
-            email: profile.emails[0].value
-        })  
+            email: profile.emails[0].value,
+            accessToken: accessToken // Save the access token
+        });
 
         done(null, newUser)
     } catch (error) {

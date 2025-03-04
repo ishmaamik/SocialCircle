@@ -46,16 +46,27 @@ app.use(express.json());
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
   // Generate JWT token after successful authentication
   console.log("Yayy hoise")
-  const token = generateJWT(req.user); // Assuming req.user contains the authenticated user
-  res.cookie('auth_token', token, { httpOnly: true });  // Send token as HTTP cookie
-  res.redirect('http://localhost:5173/home');
+  const accessToken = req.user.accessToken; // Assuming req.user contains the authenticated user
+  res.cookie('googleAccessToken', accessToken, {
+    maxAge: 300000    // Expiry time for the token (e.g., 1 minute)
+  });  // Send token as HTTP cookie
+  res.redirect('http://localhost:5173/');
 });
 
 function generateJWT(user) {
-  const token = jwt.sign({ userId: user.id }, 'your_jwt_secret');
+  // Extract necessary user details for the JWT payload
+  const payload = {
+    userId: user.id,                // User's ID
+    firstName: "Aizen",          // User's display name (from Google)
+    email: user.email,               // User's email (from Google)
+    profilePicture: user.photos ? user.photos[0].value : null, // Profile picture (if available)
+    googleId: user.id                // Google's unique ID for the user
+  };
+
+  // Generate and return JWT token with the additional user details
+  const token = jwt.sign(payload, 'your_jwt_secret', { expiresIn: '1h' });  // Expiry time can be adjusted
   return token;
 }
-
 // Route to handle user registration
 app.post('/user', addUser);
 

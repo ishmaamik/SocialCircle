@@ -16,7 +16,9 @@ const userSchema= new mongoose.Schema({
     password:{
         type: String
     },
-    
+    accessToken:{
+        type: String
+    }
 
 })
 
