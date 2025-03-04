@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 
 const Bar = () => {
-    const firstName = localStorage.getItem("email")
+    const firstName = localStorage.getItem("firstName")
     const lastName = localStorage.getItem("lastName")
     const [statuse, setStatuse] = useState("")
     const [status, setStatus] = useState(localStorage.getItem("status") || ""); // Load status from localStorage initially

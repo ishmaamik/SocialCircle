@@ -76,28 +76,19 @@ app.get('/auth/github/callback', githubPass.authenticate('github', { failureRedi
   // Create the userProfile object
   const userProfile = {
     firstName: profile.firstName,
-    lastName: profile.lastName,
-    email: profile.email,
-    profilePicture: profile.profilePicture
+    username: profile.githubUsername,
   };
 
   // Send the access token and user profile as cookies
   res.cookie('githubAccessToken', accessToken, {
     maxAge: 300000,  // Expiry time for the token (e.g., 5 minutes)
-    httpOnly: false,  // Allow frontend JS to access the cookie
-    secure: process.env.NODE_ENV === 'production',  // Use secure cookies in production
-    sameSite: 'Strict'  // Helps with CSRF protection
-  });
+    });
 
-  res.cookie('userProfile', JSON.stringify(userProfile), {
-    maxAge: 300000,  // Expiry time for the cookie
-    httpOnly: false,  // Allow frontend JS to access the cookie
-    secure: process.env.NODE_ENV === 'production',  // Use secure cookies in production
-    sameSite: 'Strict'  // Helps with CSRF protection
-  });
+  res.cookie('githubProfile', JSON.stringify(userProfile), {
+    maxAge: 300000,});
 
   // Redirect the user to the frontend after successful authentication
-  res.redirect('http://localhost:5173/');
+  res.redirect('http://localhost:5173/home');
 });
 
 function generateJWT(user) {

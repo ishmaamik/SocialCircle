@@ -12,11 +12,11 @@ const Login = () => {
   useEffect(() => {
     // Check for the googleAccessToken in cookies
     const googleAccessToken = document.cookie.split('; ').find(row => row.startsWith('googleAccessToken='))?.split('=')[1];
-    
+
     if (googleAccessToken) {
       // Store googleAccessToken in localStorage
       localStorage.setItem('googleAccessToken', googleAccessToken);
-      
+
       // Fetch user info if token is found
       fetchGoogleUserInfo(googleAccessToken);
     }
@@ -27,34 +27,39 @@ const Login = () => {
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
     return null;
-}
+  }
 
 
-useEffect(() => {
-  const userProfileCookie = getCookie('userProfile');  // Get the userProfile cookie
-  console.log(userProfileCookie)
-  if (userProfileCookie) {
-    try {
-      const decodedUserProfileCookie = decodeURIComponent(userProfileCookie);
-      const userProfile = JSON.parse(decodedUserProfileCookie);  // Parse the decoded string // Parse the cookie value to an object
-      console.log(userProfile)
-      if (userProfile) {
-        localStorage.setItem("firstName", userProfile.firstName);
-        localStorage.setItem("lastName", userProfile.lastName);
-        localStorage.setItem("email", userProfile.email);
+  useEffect(() => {
+    
+    setTimeout(()=>{
+    const userProfileCookie = getCookie('userProfile');  // Get the userProfile cookie
+    console.log(userProfileCookie)
+    if (userProfileCookie) {
+      try {
+        const decodedUserProfileCookie = decodeURIComponent(userProfileCookie);
+        const userProfile = JSON.parse(decodedUserProfileCookie);  // Parse the decoded string // Parse the cookie value to an object
+        console.log(userProfile)
+        if (userProfile) {
+          localStorage.setItem("firstName", userProfile.firstName);
+          localStorage.setItem("lastName", userProfile.lastName);
+          localStorage.setItem("email", userProfile.email);
+        }
+      } catch (error) {
+        console.error('Error parsing user profile from cookie:', error);
       }
-    } catch (error) {
-      console.error('Error parsing user profile from cookie:', error);
     }
   }
-}, []); // This effect runs once on mount
+), 4000}, []); // This effect runs once on mount
+
+  
 
 
   const fetchGoogleUserInfo = async (accessToken) => {
     try {
       const response = await fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${accessToken}`);
       const data = await response.json();
-      console.log("Data:",data);
+      console.log("Data:", data);
       if (data.error) {
         throw new Error(data.error_description);
       }
@@ -118,8 +123,10 @@ useEffect(() => {
       <Button onClick={handleSubmit} variant="contained" style={{ marginTop: "20px" }}>Submit</Button>
 
       {/* Google Login Button */}
-      <Button onClick={handleGoogleLogin}>Login with Google</Button>
-      <Button onClick={handleGithubLogin}>Login with Google</Button>
+      <div style={{display: "flex", flexDirection: "column"}}>
+        <Button onClick={handleGoogleLogin}>Login with Google</Button>
+        <Button onClick={handleGithubLogin}>Login with Github</Button>
+      </div>
     </div>
   );
 };
