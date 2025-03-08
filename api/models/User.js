@@ -4,9 +4,6 @@ const userSchema= new mongoose.Schema({
     githubId:{
         type:String
     },
-    githubUsername:{
-        type:String
-    },
     googleId:{
         type: String
     },
@@ -14,6 +11,9 @@ const userSchema= new mongoose.Schema({
         type: String
     },
     lastName: {
+        type: String
+    },
+    username:{
         type: String
     },
     email: {
@@ -24,7 +24,13 @@ const userSchema= new mongoose.Schema({
     },
     accessToken:{
         type: String
-    }
+    },
+    friends:{
+        type: [String]
+    },
+    profilePicture:{
+        type: String
+    },
 
 })
 

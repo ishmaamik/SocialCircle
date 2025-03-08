@@ -25,7 +25,7 @@ passport.use(new GoogleStrategy({
             firstName: profile.name.givenName, // Store the given name from the profile
             lastName: profile.name.familyName, // Store the family name from the profile
             email: profile.emails[0].value,   // Store the email from the profile
-            picture: profile.photos ? profile.photos[0].value : null, // Store the profile picture if available
+            profilePicture: profile.photos ? profile.photos[0].value : null, // Store the profile picture if available
             accessToken: accessToken // Save the access token
         });
 

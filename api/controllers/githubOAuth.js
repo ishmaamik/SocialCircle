@@ -25,7 +25,7 @@ passport.use(new GitHubStrategy({
     // If user does not exist, create a new user
     const newUser = await userModel.create({
       githubId: profile.id,
-      githubUsername: profile.username,  // GitHub username
+      username: profile.username,  // GitHub username
       firstName: profile.displayName, // GitHub user name or display name
       email: profile.emails && profile.emails[0] ? profile.emails[0].value : null,  // GitHub email if available
       profilePicture: profile.photos ? profile.photos[0].value : null,  // GitHub profile picture if available

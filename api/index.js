@@ -7,7 +7,8 @@ import session from 'express-session';
 import jwt from "jsonwebtoken"
 import { addUser } from './controllers/userController.js';  // Assume addUser handles user creation
 import { connect } from './middlewares/mongo.js';  // MongoDB connection setup
-
+import userRoutes from "./routes/userRoutes.js"
+import friendRoutes from "./routes/friendRoutes.js"
 dotenv.config();
 
 const app = express();
@@ -118,3 +119,7 @@ const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
+app.use('/api/friends', friendRoutes)
+app.use('/api/user', userRoutes)
