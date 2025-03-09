@@ -28,7 +28,7 @@ passport.use(new GitHubStrategy({
       username: profile.username,  // GitHub username
       firstName: profile.displayName, // GitHub user name or display name
       email: profile.emails && profile.emails[0] ? profile.emails[0].value : null,  // GitHub email if available
-      profilePicture: profile.photos ? profile.photos[0].value : null,  // GitHub profile picture if available
+      profilePicture: profile.photos ? `${profile.photos[0].value}.png` : null,  // GitHub profile picture if available
       accessToken: accessToken  // Store the access token
     });
 
@@ -47,11 +47,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (userId, done) => {
   try {
     const user = await userModel.findOne({ _id: userId });
-
-    if (!user) {
-      return done(new Error('User not found'));
-    }
-
     done(null, user);  // Pass the user to done
   } catch (error) {
     done(error);

@@ -54,6 +54,7 @@ app.get('/auth/google/callback', passport.authenticate('google', { failureRedire
         lastName: profile.lastName,
         firstName: profile.firstName,
         email: profile.email,
+        profilePicture: profile.profilePicture
     };
   res.cookie('googleAccessToken', accessToken, {
     maxAge: 300000    // Expiry time for the token (e.g., 1 minute)
@@ -77,7 +78,8 @@ app.get('/auth/github/callback', githubPass.authenticate('github', { failureRedi
   // Create the userProfile object
   const userProfile = {
     firstName: profile.firstName,
-    username: profile.githubUsername,
+    username: profile.username,
+    profilePicture: profile.profilePicture
   };
 
   // Send the access token and user profile as cookies

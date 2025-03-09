@@ -44,6 +44,8 @@ const Login = () => {
           localStorage.setItem("firstName", userProfile.firstName);
           localStorage.setItem("lastName", userProfile.lastName);
           localStorage.setItem("email", userProfile.email);
+          const profilePic= userProfile.profilePicture.replace(/=s\d+/, "=s200")
+          localStorage.setItem("profilePicture", profilePic);
         }
       } catch (error) {
         console.error('Error parsing user profile from cookie:', error);

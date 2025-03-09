@@ -1,8 +1,10 @@
+import Friendbar from "../../components/FriendBar/Friendbar"
 import HomePage from "../../components/HomePage/HomePage"
 import Post from "../../components/PostStatus/Post"
 import Sidebar from "../../components/Sidebar/Sidebar"
+import SuggestionBar from "../../components/SuggestionBar/SuggestionBar"
 import TopBar from "../../components/Topbar/TopBar"
-import {useEffect} from "react"
+import { useEffect } from "react"
 
 const Home = () => {
 
@@ -12,7 +14,7 @@ const Home = () => {
     if (parts.length === 2) return parts.pop().split(';').shift();
     return null;
   }
-  
+
   useEffect(() => {
     const userProfileCookie = getCookie('githubProfile');  // Get the userProfile cookie
     console.log(userProfileCookie)
@@ -24,6 +26,7 @@ const Home = () => {
         if (userProfile) {
           localStorage.setItem("firstName", userProfile.firstName);
           localStorage.setItem("username", userProfile.username);
+          localStorage.setItem("profilePicture", userProfile.profilePicture);
         }
       } catch (error) {
         console.error('Error parsing user profile from cookie:', error);
@@ -32,18 +35,27 @@ const Home = () => {
   }, []); // This effect runs once on mount
 
   return (
-    <div style={{ position: "relative" }}>
-      <TopBar />
-      <div style={{ display: "flex" }}>
-      <div style={{ display: "flex", flexDirection:"column" }}>
-        
-          <Post />
-          <HomePage />
-        </div>
+    <>
+      <div >
+        <TopBar />
+        <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
 
-        <Sidebar />
+            <Post />
+            <HomePage />
+          </div>
+          
+          <Sidebar />
+          <div className="friendbar-suggestion-container">
+        <Friendbar />
+        <SuggestionBar />
+
+        </div>
+        
       </div>
-    </div>
+      </div>
+     
+    </>
   )
 }
 
