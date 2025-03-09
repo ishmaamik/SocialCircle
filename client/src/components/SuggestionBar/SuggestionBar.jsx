@@ -1,4 +1,4 @@
-import { getFriends, getSuggestions } from "../../api/friend"
+import { getFriends, getSuggestions, addFriend } from "../../api/friend"
 import {useEffect, useState} from "react"
 
 
@@ -15,6 +15,10 @@ const SuggestionBar = () => {
         console.log(localStorage.getItem("profilePicture"))
         fetchSuggestions()
     },[firstName])
+
+    const addUser=async(friendName)=>{
+        await addFriend(firstName, friendName)
+    }
     const status = localStorage.getItem("status")
     return (
         <>
@@ -27,7 +31,7 @@ const SuggestionBar = () => {
                         <div key={key} style={{display:"flex", flexDirection:"row"}}>
                             <img src={p.profilePicture} className="friends-list"/>
                             <p style={{marginTop:"28px", marginLeft:"6px"}}>{p.firstName}</p>
-                            <button style={{height:"30px", marginTop:"20px", marginLeft:"4px" }}> Add</button>
+                            <button  onClick={()=>addUser(p.firstName)} style={{height:"30px", marginTop:"20px", marginLeft:"4px" }}> Add</button>
                         </div>
                         
                     ))

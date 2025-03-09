@@ -64,7 +64,7 @@ export const getSuggestions = async (req, res) => {
 
         const friendList = user.friends
 
-        if (friendList.length > 0) {
+        if (friendList.length >= 0) {
             const friends = await userModel.find({ firstName: { $nin: friendList }, _id: {$ne: user._id} }).select('firstName profilePicture')
             return res.status(200).json({ message: 'Friends found', friends })
         }

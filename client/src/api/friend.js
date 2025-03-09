@@ -26,4 +26,18 @@ export const getSuggestions=async(firstName)=>{
     }
 }
 
+export const addFriend=async(firstName, friendName)=>{
+    try{
+
+        const response= await axios.post(`${API_URL}/addFriend`, {
+            firstName: firstName,
+            friendName: friendName
+        })
+        return response.data.friends;
+    }
+    catch(error){
+        console.log(error)
+        return []
+    }
+}
 
