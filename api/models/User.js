@@ -31,6 +31,9 @@ const userSchema= new mongoose.Schema({
     profilePicture:{
         type: String
     },
+    posts:{
+        type: [Object],
+    },
 
 })
 

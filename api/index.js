@@ -125,3 +125,4 @@ app.listen(PORT, () => {
 
 app.use('/api/friends', friendRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/posts', postRoutes)
