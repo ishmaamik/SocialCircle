@@ -10,6 +10,7 @@ import { connect } from './middlewares/mongo.js';  // MongoDB connection setup
 import userRoutes from "./routes/userRoutes.js"
 import friendRoutes from "./routes/friendRoutes.js"
 import postRoutes from "./routes/postRoutes.js"
+import commentRoutes from "./routes/commentRoutes.js"
 dotenv.config();
 
 const app = express();
@@ -127,3 +128,4 @@ app.listen(PORT, () => {
 app.use('/api/friends', friendRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/posts', postRoutes)
+app.use('/api/comments', commentRoutes)

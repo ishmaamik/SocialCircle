@@ -118,7 +118,6 @@ body,
   padding-bottom: 15px;
   padding-right: 15px;
   border-radius: 12px;
-  position: relative;
   display: flex;
   flex-direction: column;
 }
@@ -251,4 +250,9 @@ body,
   gap:10px;
   flex-grow: 1;
   position: absolute;
+}
+
+.first-post, .HomePage {
+  position: relative;
+  z-index: 10;  /* Make sure they are above other elements */
 }
