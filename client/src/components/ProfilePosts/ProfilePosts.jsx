@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
-import { Data } from "./Data";
-import { getFriendsPosts } from "../../api/post";
+import { useState, useEffect } from "react";
+import { getUserPosts } from "../../api/post";
 
-const HomePage = () => {
+
+const ProfilePosts = () => {
 
     const [posts, setPosts]= useState([])
     const firstName= localStorage.getItem("firstName")
-
+    const userImage= localStorage.getItem("profilePicture")
     useEffect(()=>{
-        const fetchFriendPosts=async()=>{
-            const postList= await getFriendsPosts(firstName)
-            console.log(postList)
+        const fetchUserPosts=async()=>{
+            const postList= await getUserPosts(firstName)
             setPosts(postList)
+            console.log(postList)
         }
-        fetchFriendPosts()
+        fetchUserPosts()
     }, [])
     return (
         <>
-        <div >
+        <div style={{marginTop:"130px", marginLeft:"90px"}}>
             {posts?.map((p, key) => {
                 return (
                     <div
@@ -52,4 +52,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default ProfilePosts;

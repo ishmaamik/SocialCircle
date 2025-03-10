@@ -4,7 +4,7 @@ import { Button, TextField } from "@mui/material"
 const Post = () => {
     return (
         <>
-            <div className="first-post HomePage" >
+            <div className="first-post HomePost" >
                 <div style={{ display: "flex" }}>
                     <img src="/User.jpg" className="smallpic" alt="" />
                     <TextField label="Post Something?" fullWidth style={{ paddingLeft: '15px' }} sx={{

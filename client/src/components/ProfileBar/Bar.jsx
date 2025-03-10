@@ -26,17 +26,17 @@ const Bar = () => {
     return (
         <>
             <div className="bar">
-                <div style={{ position: "relative" }}>
-                    <img src="/flower.jpg" style={{ height: "200px", zIndex: "-1", width: "780px", position: "fixed", borderRadius: "12px", objectFit: "cover" }} />
+                <div style={{ position: "absolute" }}>
+                    <img src="/flower.jpg" style={{ height: "200px", zIndex: "-1", width: "400px", position: "absolute", borderRadius: "12px", objectFit: "cover" }} />
                 </div>
                 <img style={{ zIndex: "1" }} src={localStorage.getItem("profilePicture")} className="barProfile" alt="" />
                 <h3 className="barNameText">{firstName} {lastName}</h3>
-                {status ? (<p className="barProfileText">{status}</p>) : (<TextField className="barProfileText" style={{ width: "500px", marginLeft: "16px" }} multiline onChange={(e) => { setStatuse(e.target.value) }} />)}
+                {status ? (<p className="barProfileText">{status}</p>) : (<TextField className="barProfileText" style={{ width: "300px", marginLeft: "16px" }} multiline onChange={(e) => { setStatuse(e.target.value) }} />)}
                 <div style={{ position: "relative" }}>
                     <Button onClick={handleSubmit} style={{ bottom: "auto", marginLeft: "20px" }}>Update Status</Button>
                 </div>
 
-                {username ? (<p className="barProfileText">{username}</p>) : (<TextField className="barProfileText" style={{ width: "500px", marginLeft: "16px" }} multiline onChange={(e) => { setUserName(e.target.value) }} />)}
+                {username ? (<p className="barProfileText">{username}</p>) : (<TextField className="barProfileText" style={{ width: "300px", marginLeft: "16px" }} multiline onChange={(e) => { setUserName(e.target.value) }} />)}
                 <div style={{ position: "relative" }}>
                     <Button onClick={handleUsername} style={{ bottom: "auto", marginLeft: "20px" }}>Update Username</Button>
                 </div>
