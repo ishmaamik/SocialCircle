@@ -9,6 +9,7 @@ import { addUser } from './controllers/userController.js';  // Assume addUser ha
 import { connect } from './middlewares/mongo.js';  // MongoDB connection setup
 import userRoutes from "./routes/userRoutes.js"
 import friendRoutes from "./routes/friendRoutes.js"
+import postRoutes from "./routes/postRoutes.js"
 dotenv.config();
 
 const app = express();

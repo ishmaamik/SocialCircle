@@ -1,5 +1,5 @@
-import { postModel } from "../models/Post";
-import { userModel } from "../models/User";
+import { postModel } from "../models/Post.js";
+import { userModel } from "../models/User.js";
 
 export const addPost = async (req, res) => {
     try {
@@ -23,7 +23,7 @@ export const addPost = async (req, res) => {
 
 export const getUserPosts=async(req, res)=>{
     try{
-        const {firstName}= req.body
+        const {firstName}= req.params
         const user= await userModel.findOne({firstName: firstName})
         const posts= user.posts
         res.status(200).json(posts)
@@ -41,7 +41,8 @@ export const getFriendsPosts=async(req, res)=>{
         const friendList= user.friends
 
         if(friendList.length>0){
-            const posts= await postModel.find({firstName: {$in: friendList}}).select('posts')
+            const posts= await postModel.find({firstName: {$in: friendList}}).select('firstName caption image')
+           //postModel finds the user and accordingly returns the caption and image
             res.status(200).json(posts)
         }
         
